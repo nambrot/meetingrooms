@@ -3,7 +3,6 @@ import {Socket} from "deps/phoenix/web/static/js/phoenix";
 const authSocket = new Socket("/socket");
 authSocket.connect();
 
-
 const token = $('meta[name="guardian_token"]').attr('content');
 const channel = authSocket.channel("authorized:lobby", {guardian_token: token});
 channel.join()

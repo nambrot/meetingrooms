@@ -1,0 +1,12 @@
+<h3><%= @resource.summary %></h3>
+<p><%= @resource.description %></p>
+
+<div id="resourceContainer"></div>
+<%= link "Edit", to: resource_path(@conn, :edit, @resource) %>
+<%= link "Back", to: resource_path(@conn, :index) %>
+<script>
+  window.resource = {
+    summary: "<%= @resource.summary %>"
+  }
+</script>
+<script>require("web/static/js/resource").default(<%= @resource.id %>)</script>

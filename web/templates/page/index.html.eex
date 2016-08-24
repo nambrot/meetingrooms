@@ -1,33 +1,9 @@
-<div class="jumbotron">
-  <h2>Welcome to Phoenix Guardian!</h2>
-  <p class="lead">An example of using Phoenix, Guardian, and Überauth</p>
+<br><br>
+<h1 class="header center orange-text">Meeting Rooms</h1>
+<div class="row center">
+  <h5 class="header col s12 light">A modern responsive front-end framework based on Material Design</h5>
 </div>
-
-<div class="row marketing">
-  <div class="col-lg-6">
-    <h4>Resources</h4>
-    <ul>
-      <li>
-        <a href="http://github.com/ueberauth/guardian">Guardian</a>
-      </li>
-      <li>
-        <a href="http://github.com/ueberauth/ueberauth">Überauth</a>
-      </li>
-    </ul>
-  </div>
-
-  <div class="col-lg-6">
-    <h4>Help</h4>
-    <ul>
-      <li>
-        #ueberauth channel on the <a href='http://elixir-slackin.herokuapp.com/'>elixir slack</a>
-      </li>
-      <li>
-        <a href="http://webchat.freenode.net/?channels=elixir-lang">#elixir-lang on freenode IRC</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/hassox">@hassox</a>
-      </li>
-    </ul>
-  </div>
+<div class="row center">
+  <a href="http://materializecss.com/getting-started.html" id="download-button" class="btn-large waves-effect waves-light orange">Get Started</a>
 </div>
+<br><br>

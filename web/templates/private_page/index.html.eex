@@ -1,1 +1,1 @@
-<h2>You made it <%= @current_user.name %></h2>
+<h6>You made it <%= @current_user.name %></h6>

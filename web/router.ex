@@ -59,6 +59,7 @@ defmodule PhoenixGuardian.Router do
     resources "/users", UserController
     resources "/authorizations", AuthorizationController
     resources "/tokens", TokenController
+    resources "/resources", ResourceController
 
     get "/private", PrivatePageController, :index
   end

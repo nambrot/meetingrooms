@@ -9,14 +9,14 @@ defmodule PhoenixGuardian.User do
     field :is_admin, :boolean
 
     has_many :authorizations, PhoenixGuardian.Authorization
-
+    has_many :resources, PhoenixGuardian.Resource
     timestamps
   end
 
   @required_fields ~w(email name)a
   @optional_fields ~w()a
 
-  def registration_changeset(model, params \\ :empty) do
+  def registration_changeset(model, params \\ %{}) do
     model
     |>cast(params, ~w(email name)a)
     |> validate_required(@required_fields)
@@ -28,7 +28,7 @@ defmodule PhoenixGuardian.User do
   If no params are provided, an invalid changeset is returned
   with no validation performed.
   """
-  def changeset(model, params \\ :empty) do
+  def changeset(model, params \\ %{}) do
     model
     |> cast(params, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)

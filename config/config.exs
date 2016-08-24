@@ -46,7 +46,7 @@ config :ueberauth, Ueberauth,
   providers: [
     github: {Ueberauth.Strategy.Github, [uid_field: "login"]},
     slack: { Ueberauth.Strategy.Slack, [default_scope: "users:read,identify"]},
-    google: {Ueberauth.Strategy.Google, []},
+    google: {Ueberauth.Strategy.Google, [default_scope: "email profile https://www.googleapis.com/auth/calendar"]},
     facebook: {Ueberauth.Strategy.Facebook, [profile_fields: "email, name"]},
     identity: {Ueberauth.Strategy.Identity, [callback_methods: ["POST"]]},
   ]

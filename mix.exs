@@ -35,6 +35,7 @@ defmodule PhoenixGuardian.Mixfile do
       :logger,
       :oauth2,
       :phoenix,
+      :phoenix_pubsub,
       :phoenix_ecto,
       :phoenix_html,
       :postgrex,
@@ -44,6 +45,7 @@ defmodule PhoenixGuardian.Mixfile do
       :ueberauth_google,
       :ueberauth_identity,
       :ueberauth_slack,
+      :timex
     ]
   end
 
@@ -56,23 +58,26 @@ defmodule PhoenixGuardian.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [{:ex_machina, "~>0.6", only: [:dev, :test]},
-     {:ecto, "~> 2.0.0-rc.5", override: true},
-     {:phoenix, "~> 1.1.4"},
+     {:ecto, "~> 2.0.0", override: true},
+     {:phoenix, "~> 1.2"},
      {:phoenix_ecto, "~> 3.0.0-rc.0", override: true},
-     {:phoenix_html, "~> 2.5.1"},
+     {:phoenix_html, "~> 2.6"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:postgrex, ">= 0.11.1", override: true},
      {:guardian_db, "~> 0.7"},
      {:guardian, "~> 0.12.0"},
+
      {:ueberauth, github: "ueberauth/ueberauth", override: true},
      {:ueberauth_github, "~>0.2.0"},
      {:ueberauth_identity, "~>0.2.3"},
      {:ueberauth_slack, "~>0.2.0"},
-     {:ueberauth_google, "~> 0.2"},
+     {:ueberauth_google, "~> 0.3"},
      {:ueberauth_facebook, "~> 0.3.2"},
      {:comeonin, "~> 2.4"},
      {:gettext, "~> 0.9"},
-     {:cowboy, "~> 1.0"}]
+     {:cowboy, "~> 1.0"},
+     {:oauth2, "~> 0.6.0"},
+     {:timex, "~> 3.0"}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.
@@ -84,7 +89,7 @@ defmodule PhoenixGuardian.Mixfile do
   defp aliases do
     ["ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
      "ecto.reset": ["ecto.drop", "ecto.setup"],
-     test: [&setup_db/1, "test"]]
+     "test": ["ecto.create --quiet", "ecto.migrate", "test"]]
   end
 
   defp setup_db(_) do

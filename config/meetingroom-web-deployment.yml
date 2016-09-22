@@ -1,0 +1,46 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: meetingroom-web-deployment
+  labels:
+    project: meetingroom
+    tier: web
+    stack: elixir
+spec:
+  strategy:
+    type: RollingUpdate
+  replicas: 1
+  selector:
+    matchLabels:
+      name: meetingroom-web
+  template:
+    metadata:
+      labels:
+        name: meetingroom-web
+        project: meetingroom
+        tier: web
+        stack: elixir
+    spec:
+      containers:
+      - image: gcr.io/nambrotdotcom/meetingroom-app:latest
+        resources:
+          requests:
+            cpu: 10m
+            memory: 100Mi
+        env:
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: secrets
+                key: postgrespassword
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: secrets
+                key: postgresuser
+          - name: PORT
+            value: "3000"
+        name: web
+        ports:
+        - containerPort: 3000
+          name: http-server

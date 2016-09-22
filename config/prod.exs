@@ -59,3 +59,10 @@ config :logger, level: :info
 # Finally import the config/prod.secret.exs
 # which should be versioned separately.
 import_config "prod.secret.exs"
+config :phoenix_guardian, PhoenixGuardian.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  username: "rails",
+  password: "password",
+  database: "meetingroom",
+  hostname: "meetingroom-postgres",
+  pool_size: 10

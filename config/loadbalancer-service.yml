@@ -1,0 +1,16 @@
+# web-service.yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: loadbalancer-service
+  labels:
+    name: loadbalancer-service
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+      nodePort: 30080
+  selector:
+    name: loadbalancer-service

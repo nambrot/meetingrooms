@@ -1,0 +1,41 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: meetingroom-postgres-deployment
+  labels:
+    project: meetingroom
+spec:
+  strategy:
+    type: RollingUpdate
+  replicas: 1
+  selector:
+    matchLabels:
+      name: meetingroom-postgres
+  template:
+    metadata:
+      labels:
+        name: meetingroom-postgres
+        project: meetingroom
+    spec:
+      containers:
+        - name: postgres
+          resources:
+            requests:
+              cpu: 50m
+          image: postgres
+          env:
+            - name: POSTGRES_PASSWORD
+              value: password
+            - name: POSTGRES_USER
+              value: rails
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: meetingroom-disk
+      volumes:
+        - name: meetingroom-disk
+          persistentVolumeClaim:
+            claimName: meetingroom-postgres-claim

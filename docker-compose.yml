@@ -1,0 +1,30 @@
+postgres:
+  image: postgres
+  ports:
+    - "5432:4432" # Bind host port 5432 to PostgreSQL port 5432
+  environment:
+    POSTGRES_USER: rails
+    POSTGRES_PASSWORD: password
+web:
+  build: .
+  volumes:
+    - ./app:/myapp/app
+  ports:
+    - "4000:4000"
+  links:
+    - postgres:postgres
+    - memcached:memcached
+  environment:
+    GOOGLE_CLIENT_SECRET: V_BkXcMIywzg5G1jtbv_ajJk
+    GOOGLE_CLIENT_ID: 40569500630-36bvlhflu8a90p87bqgk6jajm624tmb2.apps.googleusercontent.com
+    PORT: 4000
+    POSTGRES_USER: rails
+    POSTGRES_PASSWORD: password
+    RAILS_ENV: production
+    SECRET_TOKEN: thisisasecrettoken
+memcached:
+  image: memcached
+nginx:
+  image: gcr.io/nambrotdotcom/loadbalancer:latest
+  ports:
+    - "80:80"

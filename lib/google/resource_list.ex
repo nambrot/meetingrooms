@@ -58,7 +58,7 @@ defmodule Google.ResourceList do
           [
             params: %{
               timeMin: Timex.now |> Timex.shift(hours: -2) |> Timex.format!("{ISO:Extended}"),
-              timeMax: Timex.now |> Timex.shift(days: 2) |> Timex.format!("{ISO:Extended}"),
+              maxResults: 15,
               singleEvents: true,
               orderBy: "startTime"
             }

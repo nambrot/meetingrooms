@@ -36,7 +36,10 @@ function connectResource(id) {
               });
 
       channel.on("eventsFetched", data => {
-        this.setState({events: data.events})
+        if (data.events)
+          this.setState({events: data.events})
+        else
+          alert("Something went wrong, go tell Nam")
       });
 
       const socketTalk = (message, from) => {
@@ -60,6 +63,9 @@ function connectResource(id) {
         .reject((event) => moment(event.end.dateTime).isBefore(moment()))
         .first()
         .value()
+    }
+    futureEvents() {
+      return this.state.events.filter((event) => moment(event.start.dateTime).isAfter(moment()))
     }
 
     renderAttendee (attendee) {
@@ -115,7 +121,7 @@ function connectResource(id) {
               <div className="futureEvents">
                 <h5>And theeen:</h5>
                 <ul className="collection">
-                  { this.state.events.map(this.renderEvent)}
+                  { this.futureEvents().map(this.renderEvent)}
                 </ul>
               </div>
             </div>

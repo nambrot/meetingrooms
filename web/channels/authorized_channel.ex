@@ -50,7 +50,7 @@ defmodule PhoenixGuardian.AuthorizedChannel do
   def handle_out("eventsFetched", payload, %Phoenix.Socket{topic: "authorized:resource:" <> id} = socket) do
     user = current_resource(socket)
     spawn fn ->
-      Process.sleep(5000)
+      Process.sleep(20000)
       Google.ResourceList.broadcast_events(user, Repo.get(Resource, id))
     end
     push socket, "eventsFetched", payload

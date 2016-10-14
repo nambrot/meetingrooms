@@ -75,9 +75,9 @@ defmodule Google.ResourceList do
           %{
            id: "ResourceEventWatch#{resource.gid}" |> String.replace(~r/[@\.]/,""),
            type: "webhook",
-           address: "https://meetingrooms.nambrot.com/resources/7/rebroadcast",
+           address: "https://meetingrooms.nambrot.com/resources/#{resource.id}/rebroadcast",
            params: %{
-             ttl: Timex.Duration.from_days(100) |> Timex.Duration.to_seconds
+             ttl: Timex.Duration.from_days(365) |> Timex.Duration.to_seconds
            }
           },
           [{"content-type", "application/json"}])

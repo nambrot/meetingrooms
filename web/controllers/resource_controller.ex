@@ -1,7 +1,7 @@
 defmodule PhoenixGuardian.ResourceController do
   use PhoenixGuardian.Web, :controller
   use Guardian.Phoenix.Controller
-  alias PhoenixGuardian.Resource
+  alias PhoenixGuardian.{ Repo, Resource }
   require Logger
   plug :scrub_params, "resource" when action in [:create, :update]
 
@@ -63,5 +63,10 @@ defmodule PhoenixGuardian.ResourceController do
     conn
     |> put_flash(:info, "Resource deleted successfully.")
     |> redirect(to: resource_path(conn, :index))
+  end
+
+  def rebroadcast(conn, %{"resource_id" => id}, current_user, _claims) do
+    Google.ResourceList.broadcast_events(Repo.get(Resource, id))
+    text conn, ""
   end
 end

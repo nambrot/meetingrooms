@@ -49,7 +49,7 @@ defmodule Google.ResourceList do
   #                 singleEvents: true,
   #                 orderBy: 'startTime'
   #               }
-  def broadcast_events(user, resource) do
+  def broadcast_events(resource) do
      {:ok, res} = Repo.get(User, resource.user_id)
      |> access_token
      |> OAuth2.AccessToken.get(

@@ -67,6 +67,22 @@ defmodule Google.ResourceList do
     PhoenixGuardian.Endpoint.broadcast! "authorized:resource:#{resource.id}", "eventsFetched", %{events: res.body["items"] }
   end
 
+  def watch_resource(resource) do
+    {:ok, res} = Repo.get(User, resource.user_id)
+     |> access_token
+     |> OAuth2.AccessToken.post(
+          "https://www.googleapis.com/calendar/v3/calendars/#{resource.gid}/events/watch",
+          %{
+           id: "ResourceEventWatch#{resource.gid}" |> String.replace(~r/[@\.]/,""),
+           type: "webhook",
+           address: "https://meetingrooms.nambrot.com/resources/7/rebroadcast",
+           params: %{
+             ttl: Timex.Duration.from_days(100) |> Timex.Duration.to_seconds
+           }
+          },
+          [{"content-type", "application/json"}])
+  end
+
   def access_token(user) do
     authorization = user |> Ecto.assoc(:authorizations) |> Repo.get_by(provider: "google") |> potentially_refresh_authorization
 

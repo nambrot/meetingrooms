@@ -59,11 +59,14 @@ defmodule PhoenixGuardian.Router do
     resources "/users", UserController
     resources "/authorizations", AuthorizationController
     resources "/tokens", TokenController
-    resources "/resources", ResourceController do
-      get "rebroadcast", ResourceController, :rebroadcast
-    end
+    resources "/resources", ResourceController
 
     get "/private", PrivatePageController, :index
+  end
+
+  scope "/resources/:resource_id", PhoenixGuardian do
+    pipe_through :api
+    post "rebroadcast", ResourceController, :rebroadcast
   end
 
   # This scope is the main authentication area for Ueberauth

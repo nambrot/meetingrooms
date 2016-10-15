@@ -11,7 +11,8 @@ defmodule PhoenixGuardian.AuthorizedChannel do
   end
 
   def join("authorized:resource:" <> id, %{claims: claim, resource: resource}, socket) do
-    {:ok, %{message: "Welcome #{resource.name}"}, socket}
+    room = socket |> current_resource |> Ecto.assoc(:resources) |> Repo.get!(id)
+    {:ok, %{message: "Welcome to resource: #{room.summary}"}, socket}
   end
 
   # Deny joining the channel if the user isn't authenticated

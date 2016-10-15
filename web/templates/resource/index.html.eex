@@ -1,5 +1,7 @@
 <h2>Listing resources</h2>
 
+<p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+
 <table class="table">
   <thead>
     <tr>

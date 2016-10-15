@@ -71,7 +71,7 @@ defmodule PhoenixGuardian.Mixfile do
      {:ueberauth_github, "~>0.2.0"},
      {:ueberauth_identity, "~>0.2.3"},
      {:ueberauth_slack, "~>0.2.0"},
-     {:ueberauth_google, "~> 0.3"},
+     {:ueberauth_google, github: "ueberauth/ueberauth_google"},
      {:ueberauth_facebook, "~> 0.3.2"},
      {:comeonin, "~> 2.4"},
      {:gettext, "~> 0.9"},

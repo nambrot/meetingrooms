@@ -2,12 +2,20 @@ defmodule PhoenixGuardian.ResourceController do
   use PhoenixGuardian.Web, :controller
   use Guardian.Phoenix.Controller
   alias PhoenixGuardian.{ Repo, Resource }
+  alias Phoenix.Controller
   require Logger
+
   plug :scrub_params, "resource" when action in [:create, :update]
 
   def index(conn, _params, current_user, _claims) do
-    resources = Google.ResourceList.all(current_user)
-    render(conn, "index.html", current_user: current_user, resources: resources)
+    try do
+      resources = Google.ResourceList.all(current_user)
+      render(conn, "index.html", current_user: current_user, resources: resources)
+    rescue
+      MatchError ->
+        Phonix.Controller.put_flash(:error, "Match Error, probably refresh token is not there")
+        render(conn, "index.html", current_user: current_user, resources: [])
+    end
   end
 
   def new(conn, _params, current_user, _claims) do
